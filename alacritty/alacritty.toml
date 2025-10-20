@@ -1,0 +1,74 @@
+# Alacritty configuration
+
+[window]
+padding.x = 10
+padding.y = 10
+opacity = 0.95
+decorations = "full"
+
+[font]
+size = 11.0
+
+[font.normal]
+family = "MesloLGS NF"  # Recommended for Powerlevel10k
+style = "Regular"
+
+[font.bold]
+family = "MesloLGS NF"
+style = "Bold"
+
+[font.italic]
+family = "MesloLGS NF"
+style = "Italic"
+
+[colors]
+# Catppuccin Mocha theme - vibrant colors
+
+[colors.primary]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[colors.cursor]
+text = "#1e1e2e"
+cursor = "#f5e0dc"
+
+[colors.vi_mode_cursor]
+text = "#1e1e2e"
+cursor = "#b4befe"
+
+[colors.selection]
+text = "#1e1e2e"
+background = "#f5e0dc"
+
+[colors.normal]
+black = "#45475a"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#bac2de"
+
+[colors.bright]
+black = "#585b70"
+red = "#f38ba8"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+blue = "#89b4fa"
+magenta = "#f5c2e7"
+cyan = "#94e2d5"
+white = "#a6adc8"
+
+[shell]
+program = "/usr/bin/zsh"
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[scrolling]
+history = 10000
+
+[env]
+TERM = "alacritty"
