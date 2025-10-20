@@ -36,9 +36,6 @@ vim.opt.ttimeoutlen = 0  -- Instant escape from insert mode (no delay for key co
 -- Misc
 vim.opt.isfname:append("@-@")
 
--- Treesitter compiler settings
-require('nvim-treesitter.install').compilers = { "zig", "gcc", "clang", "cc" }
-
 -- Markdown conceallevel
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { "markdown", "markdown.mdx" },
