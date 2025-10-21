@@ -173,3 +173,6 @@ fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"
 export BROWSER=chrome-wsl
+
+
+prompt_context() { }
