@@ -1,0 +1,4 @@
+# Linux-specific Alacritty overrides
+
+[shell]
+program = "/usr/bin/zsh"

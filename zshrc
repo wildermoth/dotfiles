@@ -170,9 +170,18 @@ fi
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 export PATH="$HOME/.local/bin:$PATH"
-export BROWSER=chrome-wsl
-
 
 prompt_context() { }
+
+# OS-specific configuration
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  # macOS-specific config
+  [ -f "$HOME/dotfiles/zshrc-mac" ] && source "$HOME/dotfiles/zshrc-mac"
+elif [[ "$(uname -s)" == "Linux" ]] && grep -qi microsoft /proc/version 2>/dev/null; then
+  # WSL-specific config
+  [ -f "$HOME/dotfiles/zshrc-wsl" ] && source "$HOME/dotfiles/zshrc-wsl"
+elif [[ "$(uname -s)" == "Linux" ]]; then
+  # Linux-specific config
+  [ -f "$HOME/dotfiles/zshrc-linux" ] && source "$HOME/dotfiles/zshrc-linux"
+fi

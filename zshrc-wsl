@@ -1,0 +1,7 @@
+# WSL-specific zsh configuration
+
+# Linux Homebrew for WSL
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# WSL browser integration
+export BROWSER=chrome-wsl

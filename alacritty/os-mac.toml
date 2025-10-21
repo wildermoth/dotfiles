@@ -1,0 +1,4 @@
+# macOS-specific Alacritty overrides
+
+[shell]
+program = "/bin/zsh"

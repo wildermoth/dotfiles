@@ -1,4 +1,8 @@
 # Alacritty configuration
+# OS-specific settings are imported from os-specific.toml
+# (install.sh creates this as a symlink to the right os-*.toml file)
+
+import = ["~/.config/alacritty/os-specific.toml"]
 
 [window]
 padding.x = 10
@@ -60,8 +64,7 @@ magenta = "#f5c2e7"
 cyan = "#94e2d5"
 white = "#a6adc8"
 
-[shell]
-program = "/usr/bin/zsh"
+# Shell configuration is in os-specific.toml
 
 [cursor]
 style = "Block"

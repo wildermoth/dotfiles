@@ -1,7 +1,7 @@
 -- Helper: show active LSP client names
 local function lsp_names()
     local bufnr = vim.api.nvim_get_current_buf()
-    local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
     if #clients == 0 then return '' end
     local names = {}
     for _, c in ipairs(clients) do table.insert(names, c.name) end

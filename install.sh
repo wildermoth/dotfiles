@@ -116,10 +116,23 @@ fi
 echo "Creating symlink: $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
 ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 
-# Handle Alacritty config differently for WSL
-if grep -qi microsoft /proc/version 2>/dev/null; then
-    # Running in WSL - setup Windows Alacritty config
-    # Get Windows username from WSLENV or fall back to current user
+# Backup and symlink alacritty directory
+if [ -e "$CONFIG_DIR/alacritty" ] && [ ! -L "$CONFIG_DIR/alacritty" ]; then
+    echo "Backing up existing alacritty config to $CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
+    mv "$CONFIG_DIR/alacritty" "$CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
+fi
+echo "Creating symlink: $CONFIG_DIR/alacritty -> $DOTFILES_DIR/alacritty"
+ln -sf "$DOTFILES_DIR/alacritty" "$CONFIG_DIR/alacritty"
+
+# Create OS-specific alacritty config symlink
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "Creating macOS-specific Alacritty config symlink"
+    ln -sf "$DOTFILES_DIR/alacritty/os-mac.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
+elif grep -qi microsoft /proc/version 2>/dev/null; then
+    echo "Creating Linux/WSL-specific Alacritty config symlink"
+    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
+
+    # Also setup Windows Alacritty config for WSL
     WINDOWS_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r\n' | tr -d ' ')
     if [ -z "$WINDOWS_USER" ]; then
         WINDOWS_USER=$(whoami)
@@ -138,22 +151,9 @@ if grep -qi microsoft /proc/version 2>/dev/null; then
     else
         echo "Windows Alacritty directory not found, skipping Windows Alacritty config"
     fi
-
-    # Also create WSL config (for reference)
-    if [ -e "$CONFIG_DIR/alacritty" ] && [ ! -L "$CONFIG_DIR/alacritty" ]; then
-        echo "Backing up existing alacritty config to $CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-        mv "$CONFIG_DIR/alacritty" "$CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-    fi
-    echo "Creating symlink: $CONFIG_DIR/alacritty -> $DOTFILES_DIR/alacritty"
-    ln -sf "$DOTFILES_DIR/alacritty" "$CONFIG_DIR/alacritty"
 else
-    # Not in WSL - regular Linux setup
-    if [ -e "$CONFIG_DIR/alacritty" ] && [ ! -L "$CONFIG_DIR/alacritty" ]; then
-        echo "Backing up existing alacritty config to $CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-        mv "$CONFIG_DIR/alacritty" "$CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-    fi
-    echo "Creating symlink: $CONFIG_DIR/alacritty -> $DOTFILES_DIR/alacritty"
-    ln -sf "$DOTFILES_DIR/alacritty" "$CONFIG_DIR/alacritty"
+    echo "Creating Linux-specific Alacritty config symlink"
+    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
 fi
 
 echo ""

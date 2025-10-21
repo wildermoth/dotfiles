@@ -71,7 +71,8 @@ return require('packer').startup(function(use)
                     {
                         name = "personal",
 
-                        path = "/mnt/c/Users/James/Documents/GitHub/obsidian",
+                        path = "~/Documents/Main Sync",
+
                     }
                 },
             })
