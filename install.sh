@@ -68,6 +68,16 @@ else
     echo "alacritty already installed ✓"
 fi
 
+# Install packer.nvim (Neovim plugin manager)
+PACKER_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/pack/packer/start/packer.nvim"
+if [ ! -d "$PACKER_DIR" ]; then
+    echo "Installing packer.nvim..."
+    mkdir -p "$(dirname "$PACKER_DIR")"
+    git clone --depth=1 https://github.com/wbthomason/packer.nvim "$PACKER_DIR"
+else
+    echo "packer.nvim already installed ✓"
+fi
+
 echo ""
 echo "Dependencies installed!"
 echo ""
