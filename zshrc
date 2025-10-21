@@ -162,7 +162,7 @@ alias ob='cd ~/obsidian-2025'
 alias ob-s='git -C ~/obsidian-2025 pull && git -C ~/obsidian-2025 push'
 alias ob-ps='git -C ~/obsidian-2025 push' 
 alias ob-pl='git -C ~/obsidian-2025 pull' 
-
+alias dtf='cd ~/dotfiles'
 
 #### Google Cloud SDK ####
 [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ] && \
