@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
 -- Terminal
-vim.keymap.set('t', '<C-k>', '<C-\\><C-n>')
+vim.keymap.set('t', '<A-q>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>tt', ':tabnew | terminal<CR>i')
 vim.keymap.set('n', '<leader>tv', ':rightbelow vsplit | terminal<CR>i')
 vim.keymap.set('n', '<leader>th', ':rightbelow split | terminal<CR>i')
