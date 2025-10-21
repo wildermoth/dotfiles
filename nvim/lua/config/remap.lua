@@ -17,3 +17,6 @@ vim.keymap.set('n', '<leader>b', "<C-^>")
 vim.keymap.set('n', '<bs>', '<c-^>\""zz', { silent = true, noremap = true })
 vim.keymap.set('n', '<Tab>', '<C-w>w')
 vim.keymap.set('n', '<S-Tab>', 'gt')
+
+-- Clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
