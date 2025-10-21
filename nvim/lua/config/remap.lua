@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 
--- Terminal
-vim.keymap.set('t', '<C-\\>', '<C-\\><C-n>')
+vim.keymap.set('t', '<C-k>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>tt', ':tabnew | terminal<CR>')
 
 -- Navigation

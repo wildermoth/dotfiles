@@ -8,28 +8,44 @@ local function lsp_names()
     return '  ' .. table.concat(names, ',')
 end
 
--- Helper: show recording @q
 local function macro_rec()
     local reg = vim.fn.reg_recording()
     if reg == '' then return '' end
-    return '壘 ' .. reg -- shows like: 壘 q
+    return '壘 ' .. reg
+end
+
+local navic_ok, navic = pcall(require, 'nvim-navic')
+
+local function breadcrumbs()
+    if not (navic_ok and navic.is_available()) then return '' end
+    local loc = navic.get_location()
+    return (loc and #loc > 0) and loc or ''
+end
+
+local function tab_title(name, context)
+    local tabnr = context.tabnr or 0
+    local label = (name ~= '' and name) or '[No Name]'
+    local icon = context.current and '' or ''
+    return string.format('%s %d %s', icon, tabnr, label)
 end
 
 require('lualine').setup({
     options = {
-        theme                = 'auto', -- auto-detect (works well with most colorschemes)
-        globalstatus         = true,   -- single statusline for the whole UI (Neovim 0.7+)
+        theme                = 'auto',
+        globalstatus         = true,
         icons_enabled        = true,
         component_separators = { left = '│', right = '│' },
-        section_separators   = { left = '', right = '' }, -- comment out if you prefer flat look
+        section_separators   = { left = '', right = '' },
         disabled_filetypes   = { 'alpha', 'dashboard', 'neo-tree', 'NvimTree', 'TelescopePrompt' },
-        refresh              = { statusline = 50 }, -- snappier updates
+        refresh              = { statusline = 50, tabline = 200 },
     },
     sections = {
-        lualine_a = { { 'mode', fmt = function(s) return s:sub(1, 1) end } }, -- compact mode letter
+        lualine_a = {
+            { 'mode', fmt = function(s) return s:sub(1, 1) end },
+        },
         lualine_b = {
             { 'branch', icon = '' },
-            { 'diff', symbols = { added = ' ', modified = '柳', removed = ' ' } },
+            { 'diff', symbols = { added = ' ', modified = 'M', removed = ' ' } },
             {
                 'diagnostics',
                 sources = { 'nvim_diagnostic' },
@@ -42,9 +58,10 @@ require('lualine').setup({
                 'filename',
                 file_status = true,
                 newfile = true,
-                path = 1, -- 0 = name, 1 = relative, 2 = absolute, 3 = shorten
+                path = 1,
                 symbols = { modified = ' ●', readonly = '', unnamed = '[No Name]' },
             },
+            { breadcrumbs, padding = { left = 1, right = 0 } },
         },
         lualine_x = {
             { lsp_names, separator = '│' },
@@ -64,33 +81,28 @@ require('lualine').setup({
         lualine_y = {},
         lualine_z = {},
     },
-    extensions = { 'quickfix', 'man', 'lazy', 'mason', 'neo-tree', 'nvim-dap-ui', 'trouble' },
-})
-
-local navic_ok, navic = pcall(require, 'nvim-navic')
-
-local function breadcrumbs()
-    if not (navic_ok and navic.is_available()) then return '' end
-    local loc = navic.get_location()
-    return (loc and #loc > 0) and loc or ''
-end
-
-require('lualine').setup({
-    options = {
-        theme                = 'auto',
-        globalstatus         = true,
-        component_separators = { '│', '│' },
-        section_separators   = { '', '' }, -- or '' for flat
-    },
-    sections = {
-        lualine_a = { { 'mode', fmt = function(s) return s:sub(1, 1) end } },
-        lualine_b = { 'branch', 'diff', { 'diagnostics', sources = { 'nvim_diagnostic' } } },
-        lualine_c = {
-            { 'filename', path = 1, symbols = { modified = ' ●', readonly = '', unnamed = '[No Name]' } },
-            { breadcrumbs, padding = { left = 1, right = 0 } }, -- ← navic here
+    tabline = {
+        lualine_a = {
+            {
+                'tabs',
+                mode = 1,
+                max_length = vim.o.columns,
+                use_mode_colors = true,
+                fmt = tab_title,
+                tabs_color = {
+                    active = 'lualine_a_normal',
+                    inactive = 'lualine_b_normal',
+                },
+                show_modified_status = true,
+            },
         },
-        lualine_x = { 'filetype' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' },
+        lualine_z = {
+            {
+                'windows',
+                show_filename_only = true,
+                show_modified_status = true,
+            },
+        },
     },
+    extensions = { 'quickfix', 'man', 'lazy', 'mason', 'neo-tree', 'nvim-dap-ui', 'trouble' },
 })
