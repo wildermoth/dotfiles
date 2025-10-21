@@ -71,7 +71,7 @@ return require('packer').startup(function(use)
                     {
                         name = "personal",
 
-                        path = "~/Documents/Main Sync",
+                        path = "~/obsidian-2025",
 
                     }
                 },

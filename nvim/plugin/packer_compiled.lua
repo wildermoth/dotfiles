@@ -156,7 +156,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["obsidian.nvim"] = {
-    config = { "\27LJ\2\n\1\0\0\5\0\6\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\2B\0\2\1K\0\1\0\15workspaces\1\0\1\15workspaces\0\1\0\2\tname\rpersonal\tpath\26~/Documents/Main Sync\nsetup\robsidian\frequire\0" },
+    config = { "\27LJ\2\nŠ\1\0\0\5\0\6\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\2B\0\2\1K\0\1\0\15workspaces\1\0\1\15workspaces\0\1\0\2\tpath\20~/obsidian-2025\tname\rpersonal\nsetup\robsidian\frequire\0" },
     loaded = true,
     path = "/Users/james.storer/.local/share/nvim/site/pack/packer/start/obsidian.nvim",
     url = "https://github.com/epwalsh/obsidian.nvim"
@@ -197,7 +197,7 @@ _G.packer_plugins = {
 time([[Defining packer_plugins]], false)
 -- Config for: obsidian.nvim
 time([[Config for obsidian.nvim]], true)
-try_loadstring("\27LJ\2\n\1\0\0\5\0\6\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\2B\0\2\1K\0\1\0\15workspaces\1\0\1\15workspaces\0\1\0\2\tname\rpersonal\tpath\26~/Documents/Main Sync\nsetup\robsidian\frequire\0", "config", "obsidian.nvim")
+try_loadstring("\27LJ\2\nŠ\1\0\0\5\0\6\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\2B\0\2\1K\0\1\0\15workspaces\1\0\1\15workspaces\0\1\0\2\tpath\20~/obsidian-2025\tname\rpersonal\nsetup\robsidian\frequire\0", "config", "obsidian.nvim")
 time([[Config for obsidian.nvim]], false)
 -- Config for: neovim
 time([[Config for neovim]], true)
