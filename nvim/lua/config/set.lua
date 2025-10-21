@@ -25,3 +25,11 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown", "markdown.mdx" },
+    callback = function()
+        vim.opt_local.conceallevel = 2
+        vim.opt_local.concealcursor = "" -- optional
+    end,
+})

@@ -1,15 +1,17 @@
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = {"c", "lua", "javascript", "python", "typescript",  "vim", "vimdoc", "query", "markdown", "markdown_inline", "json", "xml", "html"},
+require('nvim-treesitter.install').compilers = { "zig", "gcc", "clang", "cc" }
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+require 'nvim-treesitter.configs'.setup {
+    -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+    ensure_installed = { "c", "lua", "javascript", "python", "typescript", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json", "xml", "html" },
 
-  auto_install = true,
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
 
-  highlight = {
-    enable = true,
+    auto_install = true,
 
-   additional_vim_regex_highlighting = false,
-  },
+    highlight = {
+        enable = true,
+
+        additional_vim_regex_highlighting = false,
+    },
 }
