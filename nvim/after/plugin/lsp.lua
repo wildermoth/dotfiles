@@ -34,20 +34,38 @@ local function setup_server(name, cfg)
     end
 end
 
--- --- PYTHON ---
--- Pyright for type checking/intel
-setup_server("pyright", {
-    -- Keep it minimal; let Ruff handle most lint rules/formatting.
-    -- You can tune pyright here if needed (venv paths, etc.)
+setup_server("basedpyright", {
+    settings = {
+        basedpyright = {
+            analysis = {
+                typeCheckingMode = "basic",
+                enableReachabilityAnalysis = false, -- kill reachability hints
+                diagnosticSeverityOverrides = {
+                    reportUnreachable = "none",     -- mute the rule
+                    reportPrivateImportUsage = "none",
+                },
+                -- optional quality-of-life:
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                extraPaths = { "src" }, -- if you use a src/ layout
+            },
+            -- If you use a project venv at ./.venv:
+            venvPath = ".",
+            venv = ".venv",
+        },
+    },
 })
 
 -- Ruff LSP for linting & quick fixes (super fast)
 setup_server("ruff_lsp", {
     init_options = {
         settings = {
-            args = {}, -- e.g., { "--extend-select", "C90" }
-        },
-    },
+            lint = {
+                ignore = { "RUF003" },
+            },
+            args = {},
+        }
+    }
 })
 
 -- Lua (so your config files get LSP)

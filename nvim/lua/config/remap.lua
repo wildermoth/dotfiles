@@ -13,10 +13,9 @@ vim.keymap.set('n', '<leader>sh', ':rightbelow split<CR>')
 
 -- Navigation
 vim.keymap.set("n", "-", vim.cmd.Oil)
-vim.keymap.set('n', '<leader>b', "<C-^>")
-vim.keymap.set('n', '<bs>', '<c-^>\""zz', { silent = true, noremap = true })
+vim.keymap.set('n', '<leader>b', '<c-^>\""zz', { silent = true, noremap = true })
 vim.keymap.set('n', '<Tab>', '<C-w>w')
-vim.keymap.set('n', '<S-Tab>', 'gt')
+vim.keymap.set('n', '<A-Tab>', 'gt')
 
 -- Clipboard
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y')
