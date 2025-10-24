@@ -191,3 +191,6 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   # Linux-specific config
   [ -f "$HOME/dotfiles/zshrc-linux" ] && source "$HOME/dotfiles/zshrc-linux"
 fi
+
+
+source "$HOME/dotfiles/zshrc.d/cr-wip.zsh"
