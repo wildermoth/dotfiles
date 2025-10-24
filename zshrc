@@ -192,5 +192,5 @@ elif [[ "$(uname -s)" == "Linux" ]]; then
   [ -f "$HOME/dotfiles/zshrc-linux" ] && source "$HOME/dotfiles/zshrc-linux"
 fi
 
-
-source "$HOME/dotfiles/zshrc.d/cr-wip.zsh"
+source "$HOME/dotfiles/zshrc_conf/constants.zsh"
+source "$HOME/dotfiles/zshrc_conf/cr.zsh"

@@ -1,4 +1,10 @@
-# Linux-specific Alacritty overrides
+# Linux-specific Alacritty configuration
+general.import = ["./alacritty-base.toml"]
 
 [terminal.shell]
 program = "/usr/bin/zsh"
+
+[font]
+size = 16.0
+
+

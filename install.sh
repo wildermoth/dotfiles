@@ -116,45 +116,66 @@ fi
 echo "Creating symlink: $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
 ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
 
-# Backup and symlink alacritty directory
-if [ -e "$CONFIG_DIR/alacritty" ] && [ ! -L "$CONFIG_DIR/alacritty" ]; then
-    echo "Backing up existing alacritty config to $CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-    mv "$CONFIG_DIR/alacritty" "$CONFIG_DIR/alacritty.backup.$(date +%Y%m%d_%H%M%S)"
-fi
-echo "Creating symlink: $CONFIG_DIR/alacritty -> $DOTFILES_DIR/alacritty"
-ln -sf "$DOTFILES_DIR/alacritty" "$CONFIG_DIR/alacritty"
+# Create alacritty config directory and symlink OS-specific config
+mkdir -p "$CONFIG_DIR/alacritty"
 
-# Create OS-specific alacritty config symlink
 if [[ "$(uname -s)" == "Darwin" ]]; then
     echo "Creating macOS-specific Alacritty config symlink"
-    ln -sf "$DOTFILES_DIR/alacritty/os-mac.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
+    ln -sf "$DOTFILES_DIR/alacritty/os-mac.toml" "$CONFIG_DIR/alacritty/alacritty.toml"
 elif grep -qi microsoft /proc/version 2>/dev/null; then
     echo "Creating Linux/WSL-specific Alacritty config symlink"
-    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
+    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/alacritty.toml"
 
-    # Also setup Windows Alacritty config for WSL
-    WINDOWS_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r\n' | tr -d ' ')
+    # Try to get Windows username - try multiple methods
+    WINDOWS_USER=$(cmd.exe /c "echo %USERNAME%" 2>/dev/null | tr -d '\r\n' || true)
     if [ -z "$WINDOWS_USER" ]; then
+        # Fallback: use WSL username if cmd.exe not available
         WINDOWS_USER=$(whoami)
     fi
-    WINDOWS_ALACRITTY_DIR="/mnt/c/Users/${WINDOWS_USER}/AppData/Roaming/alacritty"
 
-    if [ -d "$WINDOWS_ALACRITTY_DIR" ]; then
-        # Windows can't handle WSL symlinks properly, so we copy instead
-        if [ -e "$WINDOWS_ALACRITTY_DIR/alacritty.toml" ]; then
-            echo "Backing up existing Windows Alacritty config to $WINDOWS_ALACRITTY_DIR/alacritty.toml.backup.$(date +%Y%m%d_%H%M%S)"
-            cp "$WINDOWS_ALACRITTY_DIR/alacritty.toml" "$WINDOWS_ALACRITTY_DIR/alacritty.toml.backup.$(date +%Y%m%d_%H%M%S)"
+    WINDOWS_PROFILE_UNIX="/mnt/c/Users/$WINDOWS_USER"
+
+    if [ -d "$WINDOWS_PROFILE_UNIX" ]; then
+        WINDOWS_ALACRITTY_DIR="$WINDOWS_PROFILE_UNIX/AppData/Roaming/alacritty"
+        mkdir -p "$WINDOWS_ALACRITTY_DIR"
+
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        if [ -f "$WINDOWS_ALACRITTY_DIR/alacritty.toml" ]; then
+            echo "Backing up existing Windows Alacritty config to $WINDOWS_ALACRITTY_DIR/alacritty.toml.backup.$TIMESTAMP"
+            cp "$WINDOWS_ALACRITTY_DIR/alacritty.toml" "$WINDOWS_ALACRITTY_DIR/alacritty.toml.backup.$TIMESTAMP"
         fi
-        echo "Copying config to Windows Alacritty: $WINDOWS_ALACRITTY_DIR/alacritty.toml"
-        cp "$DOTFILES_DIR/alacritty/alacritty-windows.toml" "$WINDOWS_ALACRITTY_DIR/alacritty.toml"
-        echo "Note: Windows Alacritty uses a copy (not symlink). Run install.sh again to update after changes."
+
+        # Get WSL distribution name
+        if command -v wsl.exe &> /dev/null; then
+            WSL_DISTRO=$(wsl.exe -l -v | grep -E '^\*' | awk '{print $2}' | tr -d '\r\n' 2>/dev/null || echo "Ubuntu")
+        else
+            # Fallback: extract from /etc/os-release or default to Ubuntu
+            WSL_DISTRO=$(grep -oP '^NAME="\K[^"]+' /etc/os-release 2>/dev/null || echo "Ubuntu")
+        fi
+
+        echo "Syncing Windows Alacritty config files"
+        # Copy base config and os-windows config to Windows
+        cp "$DOTFILES_DIR/alacritty/alacritty-base.toml" "$WINDOWS_ALACRITTY_DIR/alacritty-base.toml"
+        cp "$DOTFILES_DIR/alacritty/os-windows.toml" "$WINDOWS_ALACRITTY_DIR/os-windows.toml"
+
+        # Create main config that imports local copies
+        cat > "$WINDOWS_ALACRITTY_DIR/alacritty.toml" <<EOF
+# Windows Alacritty configuration
+# Imports local copies synced from WSL dotfiles
+# Run 'cd ~/dotfiles && ./install.sh' in WSL to sync after editing base config
+
+general.import = ["./alacritty-base.toml", "./os-windows.toml"]
+EOF
     else
-        echo "Windows Alacritty directory not found, skipping Windows Alacritty config"
+        echo "Windows profile directory not found, skipping Windows Alacritty sync"
     fi
 else
     echo "Creating Linux-specific Alacritty config symlink"
-    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/os-specific.toml"
+    ln -sf "$DOTFILES_DIR/alacritty/os-linux.toml" "$CONFIG_DIR/alacritty/alacritty.toml"
 fi
+
+# For all platforms, create a symlink to the base config for easy access (optional)
+ln -sf "$DOTFILES_DIR/alacritty/alacritty-base.toml" "$CONFIG_DIR/alacritty/alacritty-base.toml" 2>/dev/null || true
 
 echo ""
 echo "====================================="
@@ -165,7 +186,7 @@ echo "Configs linked:"
 echo "  - Neovim:    $CONFIG_DIR/nvim -> $DOTFILES_DIR/nvim"
 echo "  - Zsh:       $HOME/.zshrc -> $DOTFILES_DIR/zshrc"
 echo "  - Tmux:      $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
-echo "  - Alacritty: $CONFIG_DIR/alacritty -> $DOTFILES_DIR/alacritty"
+echo "  - Alacritty: $CONFIG_DIR/alacritty/alacritty.toml -> OS-specific config"
 echo ""
 echo "Next steps:"
 echo "  1. Run 'nvim' to start using your new config"

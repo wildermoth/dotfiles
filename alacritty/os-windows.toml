@@ -1,0 +1,41 @@
+# Windows-specific Alacritty configuration
+
+[terminal.shell]
+program = "wsl.exe"
+args = ["--distribution", "Ubuntu", "--cd", "~", "--exec", "zsh", "-l"]
+
+# Windows-specific key bindings
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+key = "Left"
+mods = "Control"
+chars = "\u001b[1;5D"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Control"
+chars = "\u001b[1;5C"
+
+[[keyboard.bindings]]
+key = "Back"
+mods = "Control"
+chars = "\u0017"
+
+[[keyboard.bindings]]
+key = "Delete"
+mods = "Control"
+chars = "\u0005"
+
+[font]
+size = 12.0
+
+

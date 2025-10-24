@@ -1,4 +1,10 @@
-# macOS-specific Alacritty overrides
+# macOS-specific Alacritty configuration
+general.import = ["./alacritty-base.toml"]
 
 [terminal.shell]
 program = "/bin/zsh"
+
+[font]
+size = 16.0
+
+
