@@ -1,26 +1,68 @@
 #!/bin/bash
-# Quick capture to Obsidian
+# Obsidian utility script
 
 set -e
 
 OBSIDIAN_DIR="$HOME/obsidian-2025"
 QUICK_CAPTURE="$OBSIDIAN_DIR/Quick Capture.md"
 
-if [ ! -f "$QUICK_CAPTURE" ]; then
-    echo "Error: Quick Capture file not found at $QUICK_CAPTURE"
-    exit 1
+# No arguments - cd to obsidian directory
+if [ $# -eq 0 ]; then
+    cd "$OBSIDIAN_DIR"
+    exec $SHELL
+    exit 0
 fi
 
-if [ "$1" = "-q" ] && [ -n "$2" ]; then
-    TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
+case "$1" in
+    -q)
+        # Quick capture
+        if [ -z "$2" ]; then
+            echo "Usage: obs -q \"your note text\""
+            exit 1
+        fi
 
-    echo "##### $2" >> "$QUICK_CAPTURE"
-    echo "*$TIMESTAMP*" >> "$QUICK_CAPTURE"
-    echo "" >> "$QUICK_CAPTURE"
-    echo "---" >> "$QUICK_CAPTURE"
+        if [ ! -f "$QUICK_CAPTURE" ]; then
+            echo "Error: Quick Capture file not found at $QUICK_CAPTURE"
+            exit 1
+        fi
 
-    echo "✓ Added to Quick Capture"
-else
-    echo "Usage: obs -q \"your note text\""
-    exit 1
-fi
+        TIMESTAMP=$(date '+%d/%m %I:%M%P')
+        echo "**$TIMESTAMP** - $2" >> "$QUICK_CAPTURE"
+        echo "✓ Added to Quick Capture"
+        ;;
+
+    -s)
+        # Sync: pull, add, commit, push
+        cd "$OBSIDIAN_DIR"
+        git pull
+        git add .
+        git commit -m "$(date '+%Y-%m-%d')" || true
+        git push
+        ;;
+
+    --push)
+        # Push: add, commit, push
+        cd "$OBSIDIAN_DIR"
+        git add .
+        git commit -m "$(date '+%Y-%m-%d')" || true
+        git push
+        ;;
+
+    --pull)
+        # Pull
+        cd "$OBSIDIAN_DIR"
+        git pull
+        ;;
+
+    *)
+        echo "Usage: obs [OPTIONS]"
+        echo ""
+        echo "Options:"
+        echo "  (no args)      Change to Obsidian directory"
+        echo "  -q \"text\"      Quick capture note"
+        echo "  -s             Sync (pull, commit, push)"
+        echo "  --push         Commit and push"
+        echo "  --pull         Pull latest changes"
+        exit 1
+        ;;
+esac

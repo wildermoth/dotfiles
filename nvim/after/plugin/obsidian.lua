@@ -62,6 +62,15 @@ vim.keymap.set('n', '<leader>oh', function()
     end)
 end, { desc = 'Quick new note (timestamp ID)' })
 
+vim.keymap.set('n', '<leader>oq', function()
+    vim.ui.input({ prompt = 'Quick capture: ' }, function(text)
+        if text and text ~= '' then
+            vim.fn.system(string.format('obs -q "%s"', text))
+            print('✓ Added to Quick Capture')
+        end
+    end)
+end, { desc = 'Quick capture to Obsidian' })
+
 vim.keymap.set('n', 'gf', function()
     if require('obsidian').util.cursor_on_markdown_link() then
         return '<cmd>ObsidianFollowLink<CR>'
