@@ -5,3 +5,5 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # WSL browser integration
 export BROWSER=chrome-wsl
+
+alias ahk='nvim /mnt/c/Users/james/Desktop/AHK\ Scripts/extend_layer_wide_std.ahk'

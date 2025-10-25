@@ -205,6 +205,19 @@ elif grep -qi microsoft /proc/version 2>/dev/null; then
 
 general.import = ["./alacritty-base.toml", "./os-windows.toml"]
 EOF
+
+        # Sync AHK script to Windows Desktop
+        WINDOWS_AHK_DIR="$WINDOWS_PROFILE_UNIX/Desktop/AHK Scripts"
+        mkdir -p "$WINDOWS_AHK_DIR"
+
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        if [ -f "$WINDOWS_AHK_DIR/extend_layer_wide_std.ahk" ]; then
+            echo "Backing up existing AHK script to $WINDOWS_AHK_DIR/extend_layer_wide_std.ahk.backup.$TIMESTAMP"
+            cp "$WINDOWS_AHK_DIR/extend_layer_wide_std.ahk" "$WINDOWS_AHK_DIR/extend_layer_wide_std.ahk.backup.$TIMESTAMP"
+        fi
+
+        echo "Syncing AHK script to Windows"
+        cp "$DOTFILES_DIR/keyboard/extend_layer_wide_std.ahk" "$WINDOWS_AHK_DIR/extend_layer_wide_std.ahk"
     else
         echo "Windows profile directory not found, skipping Windows Alacritty sync"
     fi
