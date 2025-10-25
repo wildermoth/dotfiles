@@ -15,7 +15,6 @@ require("obsidian").setup({
         folder = "",
         date_format = "%Y-%m-%d",
         alias_format = "%B %d, %Y",
-        template = "Daily-nvim.md",
     },
 
     -- Templates configuration

@@ -1,4 +1,4 @@
--- Auto-add frontmatter to new notes created via ObsidianSearch
+-- Auto-add frontmatter to new notes created via ObsidianSearch or daily notes
 vim.api.nvim_create_autocmd("BufEnter", {
     pattern = "*/obsidian-2025/*.md",
     callback = function()
@@ -27,7 +27,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
                 -- If no H1 found, use filename
                 if title == "" then
                     local filename = vim.fn.expand("%:t:r")
-                    title = filename
+                    -- Check if it's a date format (YYYY-MM-DD)
+                    if filename:match("^%d%d%d%d%-%d%d%-%d%d$") then
+                        -- It's a daily note, format title as "Month DD, YYYY"
+                        local year, month, day = filename:match("^(%d%d%d%d)%-(%d%d)%-(%d%d)$")
+                        title = os.date("%B %d, %Y", os.time({year=year, month=month, day=day}))
+                    else
+                        title = filename
+                    end
                 end
 
                 local date_created = os.date("%Y-%m-%d")
