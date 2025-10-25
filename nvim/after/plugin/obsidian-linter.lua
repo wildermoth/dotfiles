@@ -1,5 +1,8 @@
--- Obsidian Linter behavior: Update YAML frontmatter on save
--- Replicates yaml-title and yaml-title-alias rules
+-- Obsidian linter for Neovim
+-- Automatically updates YAML frontmatter on save to match Obsidian conventions:
+-- - Sets title/aliases to match first H1 heading
+-- - Extracts hashtags from content and moves them to tags array
+-- - Removes hashtags from content after extraction
 
 local function update_obsidian_frontmatter()
     -- Only run in markdown files in obsidian vault
@@ -166,13 +169,6 @@ local function update_obsidian_frontmatter()
                     table.insert(lines_to_remove, j)
                     j = j + 1
                 end
-
-                -- Insert new tags as multi-line bullet list after tags: line
-                for idx = #tags_array, 1, -1 do
-                    table.insert(lines, i + 1, "  - " .. tags_array[idx])
-                    fm_end = fm_end + 1
-                    updated = true
-                end
             end
         end
     end
@@ -182,6 +178,21 @@ local function update_obsidian_frontmatter()
         table.remove(lines, lines_to_remove[i])
         updated = true
         fm_end = fm_end - 1  -- Adjust frontmatter end
+    end
+
+    -- Now insert new tags after removal
+    if #tags_array > 0 then
+        for i = fm_start + 1, fm_end - 1 do
+            if lines[i]:match("^tags:$") then
+                -- Insert tags as multi-line bullet list after tags: line
+                for idx = #tags_array, 1, -1 do
+                    table.insert(lines, i + 1, "  - " .. tags_array[idx])
+                    fm_end = fm_end + 1
+                    updated = true
+                end
+                break
+            end
+        end
     end
 
     -- Update buffer if changes were made

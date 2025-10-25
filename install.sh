@@ -119,16 +119,16 @@ if [ -e "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
     echo "Backing up existing .zshrc to $HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)"
     mv "$HOME/.zshrc" "$HOME/.zshrc.backup.$(date +%Y%m%d_%H%M%S)"
 fi
-echo "Creating symlink: $HOME/.zshrc -> $DOTFILES_DIR/zshrc"
-ln -sf "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
+echo "Creating symlink: $HOME/.zshrc -> $DOTFILES_DIR/configs/zsh/zshrc"
+ln -sf "$DOTFILES_DIR/configs/zsh/zshrc" "$HOME/.zshrc"
 
 # Backup and symlink tmux config
 if [ -e "$HOME/.tmux.conf" ] && [ ! -L "$HOME/.tmux.conf" ]; then
     echo "Backing up existing .tmux.conf to $HOME/.tmux.conf.backup.$(date +%Y%m%d_%H%M%S)"
     mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.backup.$(date +%Y%m%d_%H%M%S)"
 fi
-echo "Creating symlink: $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
-ln -sf "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
+echo "Creating symlink: $HOME/.tmux.conf -> $DOTFILES_DIR/configs/tmux/tmux.conf"
+ln -sf "$DOTFILES_DIR/configs/tmux/tmux.conf" "$HOME/.tmux.conf"
 
 # Create alacritty config directory and symlink OS-specific config
 mkdir -p "$CONFIG_DIR/alacritty"
@@ -241,8 +241,8 @@ echo "====================================="
 echo ""
 echo "Configs linked:"
 echo "  - Neovim:    $CONFIG_DIR/nvim -> $DOTFILES_DIR/nvim"
-echo "  - Zsh:       $HOME/.zshrc -> $DOTFILES_DIR/zshrc"
-echo "  - Tmux:      $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
+echo "  - Zsh:       $HOME/.zshrc -> $DOTFILES_DIR/configs/zsh/zshrc"
+echo "  - Tmux:      $HOME/.tmux.conf -> $DOTFILES_DIR/configs/tmux/tmux.conf"
 echo "  - Alacritty: $CONFIG_DIR/alacritty/alacritty.toml -> OS-specific config"
 echo "  - Scripts:   $HOME/bin/obs -> $DOTFILES_DIR/obs"
 echo ""

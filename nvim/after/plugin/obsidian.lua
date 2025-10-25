@@ -14,17 +14,6 @@ vim.keymap.set('n', '<leader>on', function()
 
         local client = require('obsidian').get_client()
         local note_id = tostring(os.date("%Y%m%d%H%M"))
-
-        -- Build the template content manually with substitutions
-        local day = tonumber(os.date("%d"))
-        local suffix = "th"
-        if day == 1 or day == 21 or day == 31 then
-            suffix = "st"
-        elseif day == 2 or day == 22 then
-            suffix = "nd"
-        elseif day == 3 or day == 23 then
-            suffix = "rd"
-        end
         local date_created = os.date("%Y-%m-%d")
 
         -- Create the note content

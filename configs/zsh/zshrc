@@ -190,14 +190,14 @@ prompt_context() { }
 # OS-specific configuration
 if [[ "$(uname -s)" == "Darwin" ]]; then
   # macOS-specific config
-  [ -f "$HOME/dotfiles/zshrc-mac" ] && source "$HOME/dotfiles/zshrc-mac"
+  [ -f "$HOME/dotfiles/configs/zsh/zshrc-mac" ] && source "$HOME/dotfiles/configs/zsh/zshrc-mac"
 elif [[ "$(uname -s)" == "Linux" ]] && grep -qi microsoft /proc/version 2>/dev/null; then
   # WSL-specific config
-  [ -f "$HOME/dotfiles/zshrc-wsl" ] && source "$HOME/dotfiles/zshrc-wsl"
+  [ -f "$HOME/dotfiles/configs/zsh/zshrc-wsl" ] && source "$HOME/dotfiles/configs/zsh/zshrc-wsl"
 elif [[ "$(uname -s)" == "Linux" ]]; then
   # Linux-specific config
-  [ -f "$HOME/dotfiles/zshrc-linux" ] && source "$HOME/dotfiles/zshrc-linux"
+  [ -f "$HOME/dotfiles/configs/zsh/zshrc-linux" ] && source "$HOME/dotfiles/configs/zsh/zshrc-linux"
 fi
 
-source "$HOME/dotfiles/zshrc_conf/constants.zsh"
-source "$HOME/dotfiles/zshrc_conf/cr.zsh"
+source "$HOME/dotfiles/configs/zsh/zshrc_conf/constants.zsh"
+source "$HOME/dotfiles/configs/zsh/zshrc_conf/cr.zsh"
