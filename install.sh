@@ -220,6 +220,10 @@ ln -sf "$DOTFILES_DIR/alacritty/alacritty-base.toml" "$CONFIG_DIR/alacritty/alac
 mkdir -p "$HOME/bin"
 echo "Creating symlink: $HOME/bin/obs -> $DOTFILES_DIR/obs"
 ln -sf "$DOTFILES_DIR/obs" "$HOME/bin/obs"
+echo "Creating symlink: $HOME/bin/tmux-sessionizer -> $DOTFILES_DIR/bin/tmux-sessionizer"
+ln -sf "$DOTFILES_DIR/bin/tmux-sessionizer" "$HOME/bin/tmux-sessionizer"
+echo "Creating symlink: $HOME/bin/tmux-session-persistent -> $DOTFILES_DIR/bin/tmux-session-persistent"
+ln -sf "$DOTFILES_DIR/bin/tmux-session-persistent" "$HOME/bin/tmux-session-persistent"
 
 # ============================================
 # Configure Obsidian CLI

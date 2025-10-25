@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# tmux session switcher with fzf
+# Based on ThePrimeagen's workflow
+
+# List of directories to search (one level deep)
+# Modify this list to add more search paths
+SEARCH_DIRS=(
+    "$HOME"
+)
+
+# Find all directories one level deep from search paths
+selected=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf)
+
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# Get the basename for the session name
+selected_name=$(basename "$selected" | tr . _)
+
+# Check if we're in tmux
+tmux_running=$(pgrep tmux)
+
+# If tmux is not running, start a new session
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s "$selected_name" -c "$selected"
+    exit 0
+fi
+
+# Check if session already exists
+if ! tmux has-session -t="$selected_name" 2> /dev/null; then
+    tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+# Switch to the session
+if [[ -z $TMUX ]]; then
+    # Not inside tmux, attach to session
+    tmux attach-session -t "$selected_name"
+else
+    # Inside tmux, switch to session
+    tmux switch-client -t "$selected_name"
+fi

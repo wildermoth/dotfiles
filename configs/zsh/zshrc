@@ -191,3 +191,6 @@ fi
 
 source "$HOME/dotfiles/configs/zsh/zshrc_conf/constants.zsh"
 source "$HOME/dotfiles/configs/zsh/zshrc_conf/cr.zsh"
+
+# Tmux sessionizer - Control-f to fuzzy find and switch sessions
+bindkey -s ^f "tmux-sessionizer\n"

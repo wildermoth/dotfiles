@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Create or switch to a persistent tmux session
+# Usage: tmux-session-persistent <session-name>
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: tmux-session-persistent <session-name>"
+    exit 1
+fi
+
+session_name=$1
+
+# Map session names to directories
+case "$session_name" in
+    dotfiles)
+        directory="$HOME/dotfiles"
+        ;;
+    gweb-diamond-valley)
+        directory="$HOME/gweb-diamond-valley"
+        ;;
+    placeholder-9)
+        directory="$HOME"
+        ;;
+    placeholder-0)
+        directory="$HOME"
+        ;;
+    *)
+        directory="$HOME"
+        ;;
+esac
+
+# Check if session already exists
+if ! tmux has-session -t="$session_name" 2> /dev/null; then
+    tmux new-session -ds "$session_name" -c "$directory"
+fi
+
+# Switch to the session
+if [[ -z $TMUX ]]; then
+    # Not inside tmux, attach to session
+    tmux attach-session -t "$session_name"
+else
+    # Inside tmux, switch to session
+    tmux switch-client -t "$session_name"
+fi
