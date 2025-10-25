@@ -1,0 +1,26 @@
+#!/bin/bash
+# Quick capture to Obsidian
+
+set -e
+
+OBSIDIAN_DIR="$HOME/obsidian-2025"
+QUICK_CAPTURE="$OBSIDIAN_DIR/Quick Capture.md"
+
+if [ ! -f "$QUICK_CAPTURE" ]; then
+    echo "Error: Quick Capture file not found at $QUICK_CAPTURE"
+    exit 1
+fi
+
+if [ "$1" = "-q" ] && [ -n "$2" ]; then
+    TIMESTAMP=$(date '+%Y-%m-%d %H:%M')
+
+    echo "##### $2" >> "$QUICK_CAPTURE"
+    echo "*$TIMESTAMP*" >> "$QUICK_CAPTURE"
+    echo "" >> "$QUICK_CAPTURE"
+    echo "---" >> "$QUICK_CAPTURE"
+
+    echo "✓ Added to Quick Capture"
+else
+    echo "Usage: obs -q \"your note text\""
+    exit 1
+fi

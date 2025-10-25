@@ -177,6 +177,11 @@ fi
 # For all platforms, create a symlink to the base config for easy access (optional)
 ln -sf "$DOTFILES_DIR/alacritty/alacritty-base.toml" "$CONFIG_DIR/alacritty/alacritty-base.toml" 2>/dev/null || true
 
+# Create ~/bin directory and symlink scripts
+mkdir -p "$HOME/bin"
+echo "Creating symlink: $HOME/bin/obs -> $DOTFILES_DIR/obs"
+ln -sf "$DOTFILES_DIR/obs" "$HOME/bin/obs"
+
 echo ""
 echo "====================================="
 echo "  Installation Complete!"
@@ -187,6 +192,7 @@ echo "  - Neovim:    $CONFIG_DIR/nvim -> $DOTFILES_DIR/nvim"
 echo "  - Zsh:       $HOME/.zshrc -> $DOTFILES_DIR/zshrc"
 echo "  - Tmux:      $HOME/.tmux.conf -> $DOTFILES_DIR/tmux.conf"
 echo "  - Alacritty: $CONFIG_DIR/alacritty/alacritty.toml -> OS-specific config"
+echo "  - Scripts:   $HOME/bin/obs -> $DOTFILES_DIR/obs"
 echo ""
 echo "Next steps:"
 echo "  1. Run 'nvim' to start using your new config"

@@ -8,17 +8,12 @@ args = ["--distribution", "Ubuntu", "--cd", "~", "--exec", "zsh", "-l"]
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-key = "Left"
 mods = "Control"
-chars = "\u001b[1;5D"
+
+[[keyboard.bindings]]
+key = "X"
+mods = "Control"
+chars = "\u0003"
 
 [[keyboard.bindings]]
 key = "Right"
