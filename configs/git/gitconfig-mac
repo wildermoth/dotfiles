@@ -1,0 +1,5 @@
+# macOS-specific git configuration
+[include]
+	path = ~/dotfiles/configs/git/gitconfig-base
+
+# Add macOS-specific settings here (e.g., credentials, http settings)

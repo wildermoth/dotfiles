@@ -158,7 +158,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias dtf='cd ~/dotfiles'
+alias dtf='cd ~/dotfiles && nvim .'
 
 # Obsidian CLI aliases
 alias obc='obsidian-cli'
@@ -172,12 +172,6 @@ alias obc-open='obsidian-cli open'
   . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"
 [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ] && \
   . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"
-
-# DISABLED: Powerlevel10k theme (testing nvim paste issue)
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
-# To customize prompt, run p10k configure or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 export PATH="$HOME/.local/bin:$PATH"
 

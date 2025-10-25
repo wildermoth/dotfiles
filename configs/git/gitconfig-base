@@ -1,0 +1,15 @@
+[core]
+    excludesfile = ~/.gitignore_global
+	editor = nvim
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+    side-by-side = true
+
+[merge]
+	conflictStyle = zdiff3
+[user]
+	email = james.storer@phntms.com
+	name = James Storer

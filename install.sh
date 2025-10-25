@@ -130,6 +130,31 @@ fi
 echo "Creating symlink: $HOME/.tmux.conf -> $DOTFILES_DIR/configs/tmux/tmux.conf"
 ln -sf "$DOTFILES_DIR/configs/tmux/tmux.conf" "$HOME/.tmux.conf"
 
+# Backup and symlink OS-specific gitconfig
+if [ -e "$HOME/.gitconfig" ] && [ ! -L "$HOME/.gitconfig" ]; then
+    echo "Backing up existing .gitconfig to $HOME/.gitconfig.backup.$(date +%Y%m%d_%H%M%S)"
+    mv "$HOME/.gitconfig" "$HOME/.gitconfig.backup.$(date +%Y%m%d_%H%M%S)"
+fi
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "Creating symlink: $HOME/.gitconfig -> $DOTFILES_DIR/configs/git/gitconfig-mac"
+    ln -sf "$DOTFILES_DIR/configs/git/gitconfig-mac" "$HOME/.gitconfig"
+elif grep -qi microsoft /proc/version 2>/dev/null; then
+    echo "Creating symlink: $HOME/.gitconfig -> $DOTFILES_DIR/configs/git/gitconfig-linux (WSL)"
+    ln -sf "$DOTFILES_DIR/configs/git/gitconfig-linux" "$HOME/.gitconfig"
+else
+    echo "Creating symlink: $HOME/.gitconfig -> $DOTFILES_DIR/configs/git/gitconfig-linux"
+    ln -sf "$DOTFILES_DIR/configs/git/gitconfig-linux" "$HOME/.gitconfig"
+fi
+
+# Backup and symlink gitignore_global
+if [ -e "$HOME/.gitignore_global" ] && [ ! -L "$HOME/.gitignore_global" ]; then
+    echo "Backing up existing .gitignore_global to $HOME/.gitignore_global.backup.$(date +%Y%m%d_%H%M%S)"
+    mv "$HOME/.gitignore_global" "$HOME/.gitignore_global.backup.$(date +%Y%m%d_%H%M%S)"
+fi
+echo "Creating symlink: $HOME/.gitignore_global -> $DOTFILES_DIR/configs/git/gitignore_global"
+ln -sf "$DOTFILES_DIR/configs/git/gitignore_global" "$HOME/.gitignore_global"
+
 # Create alacritty config directory and symlink OS-specific config
 mkdir -p "$CONFIG_DIR/alacritty"
 
@@ -243,6 +268,8 @@ echo "Configs linked:"
 echo "  - Neovim:    $CONFIG_DIR/nvim -> $DOTFILES_DIR/nvim"
 echo "  - Zsh:       $HOME/.zshrc -> $DOTFILES_DIR/configs/zsh/zshrc"
 echo "  - Tmux:      $HOME/.tmux.conf -> $DOTFILES_DIR/configs/tmux/tmux.conf"
+echo "  - Git:       $HOME/.gitconfig -> $DOTFILES_DIR/configs/git/gitconfig"
+echo "  - Git:       $HOME/.gitignore_global -> $DOTFILES_DIR/configs/git/gitignore_global"
 echo "  - Alacritty: $CONFIG_DIR/alacritty/alacritty.toml -> OS-specific config"
 echo "  - Scripts:   $HOME/bin/obs -> $DOTFILES_DIR/obs"
 echo ""
