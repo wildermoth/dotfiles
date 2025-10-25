@@ -78,6 +78,20 @@ else
     echo "packer.nvim already installed ✓"
 fi
 
+# Install obsidian-cli via Homebrew
+if ! command -v obsidian-cli &> /dev/null; then
+    if command -v brew &> /dev/null; then
+        echo "Installing obsidian-cli..."
+        brew tap yakitrak/yakitrak 2>/dev/null || true
+        brew install yakitrak/yakitrak/obsidian-cli
+    else
+        echo "Warning: Homebrew not found. Skipping obsidian-cli installation."
+        echo "Install Homebrew first, then run: brew tap yakitrak/yakitrak && brew install yakitrak/yakitrak/obsidian-cli"
+    fi
+else
+    echo "obsidian-cli already installed ✓"
+fi
+
 echo ""
 echo "Dependencies installed!"
 echo ""
@@ -181,6 +195,44 @@ ln -sf "$DOTFILES_DIR/alacritty/alacritty-base.toml" "$CONFIG_DIR/alacritty/alac
 mkdir -p "$HOME/bin"
 echo "Creating symlink: $HOME/bin/obs -> $DOTFILES_DIR/obs"
 ln -sf "$DOTFILES_DIR/obs" "$HOME/bin/obs"
+
+# ============================================
+# Configure Obsidian CLI
+# ============================================
+
+if command -v obsidian-cli &> /dev/null; then
+    echo ""
+    echo "Configuring obsidian-cli..."
+
+    # Create Obsidian config directory
+    mkdir -p "$HOME/.config/obsidian"
+
+    # Create obsidian.json config file for obsidian-cli
+    if [ ! -f "$HOME/.config/obsidian/obsidian.json" ]; then
+        cat > "$HOME/.config/obsidian/obsidian.json" << 'EOF'
+{
+  "vaults": {
+    "e5c8e16c72be991f": {
+      "path": "$HOME/obsidian-2025",
+      "ts": 1729872000000,
+      "open": true
+    }
+  }
+}
+EOF
+        # Replace $HOME with actual home directory
+        sed -i.bak "s|\$HOME|$HOME|g" "$HOME/.config/obsidian/obsidian.json"
+        rm "$HOME/.config/obsidian/obsidian.json.bak"
+        echo "Created Obsidian config file"
+    else
+        echo "Obsidian config file already exists ✓"
+    fi
+
+    # Set default vault
+    if [ -d "$HOME/obsidian-2025" ]; then
+        obsidian-cli set-default "obsidian-2025" 2>/dev/null || echo "Note: Set obsidian-cli default vault manually with: obsidian-cli set-default obsidian-2025"
+    fi
+fi
 
 echo ""
 echo "====================================="

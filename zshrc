@@ -160,9 +160,16 @@ fi
 
 alias ob='cd ~/obsidian-2025'
 alias ob-s='git -C ~/obsidian-2025 pull && git -C ~/obsidian-2025 push'
-alias ob-ps='git -C ~/obsidian-2025 push' 
-alias ob-pl='git -C ~/obsidian-2025 pull' 
+alias ob-ps='git -C ~/obsidian-2025 push'
+alias ob-pl='git -C ~/obsidian-2025 pull'
 alias dtf='cd ~/dotfiles'
+
+# Obsidian CLI aliases
+alias obc='obsidian-cli'
+alias obc-search='obsidian-cli search | xargs -I {} nvim ~/obsidian-2025/{}'
+alias obc-daily='nvim ~/obsidian-2025/$(date +%Y-%m-%d).md'
+alias obc-new='nvim ~/obsidian-2025/$(date +%Y%m%d%H%M).md'
+alias obc-open='obsidian-cli open'
 
 #### Google Cloud SDK ####
 [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ] && \
