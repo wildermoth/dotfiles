@@ -156,7 +156,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["obsidian.nvim"] = {
-    config = { "\27LJ\2\n\1\0\1\6\0\n\0\23\n\0\0\0X\1\2€\a\0\0\0X\1\6€6\1\1\0006\3\2\0009\3\3\3'\5\4\0B\3\2\0C\1\0\0\18\3\0\0009\1\5\0'\4\6\0'\5\a\0B\1\4\2\18\3\1\0009\1\5\1'\4\b\0'\5\0\0B\1\4\2\18\3\1\0009\1\t\1D\1\2\0\nlower\18[^A-Za-z0-9-]\6-\6 \tgsub\15%Y%m%d%H%M\tdate\aos\rtostring\5K\0\1\6\0\5\0\t9\1\0\0006\2\1\0009\4\2\0B\2\2\2#\1\2\1\18\4\1\0009\2\3\1'\5\4\0D\2\3\0\b.md\16with_suffix\aid\rtostring\bdir@\0\1\4\0\4\0\a6\1\0\0009\1\1\0019\1\2\0015\3\3\0>\0\2\3B\1\2\1K\0\1\0\1\2\0\0\rxdg-open\rjobstart\afn\bvimü\4\1\0\6\0\28\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0023\3\n\0=\3\v\0023\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0005\4\18\0005\5\17\0=\5\19\0045\5\20\0=\5\21\4=\4\22\3=\3\23\0025\3\24\0=\3\25\0023\3\26\0=\3\27\2B\0\2\1K\0\1\0\20follow_url_func\0\16attachments\1\0\1\15img_folder\24_ignore/Attachments\aui\15checkboxes\6x\1\0\2\tchar\5\rhl_group\17ObsidianDone\6 \1\0\0\1\0\2\tchar\tó°„±\rhl_group\17ObsidianTodo\1\0\1\venable\2\15completion\1\0\2\rnvim_cmp\2\14min_chars\3\2\19note_path_func\0\17note_id_func\0\14templates\1\0\1\vfolder\22_ignore/Templates\16daily_notes\1\0\4\16date_format\r%Y-%m-%d\vfolder\5\17alias_format\14%B %d, %Y\rtemplate\18Daily-nvim.md\15workspaces\1\0\3\23new_notes_location\17notes_subdir\24disable_frontmatter\2\17notes_subdir\5\1\0\2\tpath\20~/obsidian-2025\tname\rpersonal\nsetup\robsidian\frequire\0" },
+    config = { "\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.obsidian\frequire\0" },
     loaded = true,
     path = "/home/james/.local/share/nvim/site/pack/packer/start/obsidian.nvim",
     url = "https://github.com/epwalsh/obsidian.nvim"
@@ -195,18 +195,18 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: oil.nvim
+time([[Config for oil.nvim]], true)
+try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\boil\frequire\0", "config", "oil.nvim")
+time([[Config for oil.nvim]], false)
 -- Config for: obsidian.nvim
 time([[Config for obsidian.nvim]], true)
-try_loadstring("\27LJ\2\n\1\0\1\6\0\n\0\23\n\0\0\0X\1\2€\a\0\0\0X\1\6€6\1\1\0006\3\2\0009\3\3\3'\5\4\0B\3\2\0C\1\0\0\18\3\0\0009\1\5\0'\4\6\0'\5\a\0B\1\4\2\18\3\1\0009\1\5\1'\4\b\0'\5\0\0B\1\4\2\18\3\1\0009\1\t\1D\1\2\0\nlower\18[^A-Za-z0-9-]\6-\6 \tgsub\15%Y%m%d%H%M\tdate\aos\rtostring\5K\0\1\6\0\5\0\t9\1\0\0006\2\1\0009\4\2\0B\2\2\2#\1\2\1\18\4\1\0009\2\3\1'\5\4\0D\2\3\0\b.md\16with_suffix\aid\rtostring\bdir@\0\1\4\0\4\0\a6\1\0\0009\1\1\0019\1\2\0015\3\3\0>\0\2\3B\1\2\1K\0\1\0\1\2\0\0\rxdg-open\rjobstart\afn\bvimü\4\1\0\6\0\28\0!6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0004\3\3\0005\4\3\0>\4\1\3=\3\5\0025\3\6\0=\3\a\0025\3\b\0=\3\t\0023\3\n\0=\3\v\0023\3\f\0=\3\r\0025\3\14\0=\3\15\0025\3\16\0005\4\18\0005\5\17\0=\5\19\0045\5\20\0=\5\21\4=\4\22\3=\3\23\0025\3\24\0=\3\25\0023\3\26\0=\3\27\2B\0\2\1K\0\1\0\20follow_url_func\0\16attachments\1\0\1\15img_folder\24_ignore/Attachments\aui\15checkboxes\6x\1\0\2\tchar\5\rhl_group\17ObsidianDone\6 \1\0\0\1\0\2\tchar\tó°„±\rhl_group\17ObsidianTodo\1\0\1\venable\2\15completion\1\0\2\rnvim_cmp\2\14min_chars\3\2\19note_path_func\0\17note_id_func\0\14templates\1\0\1\vfolder\22_ignore/Templates\16daily_notes\1\0\4\16date_format\r%Y-%m-%d\vfolder\5\17alias_format\14%B %d, %Y\rtemplate\18Daily-nvim.md\15workspaces\1\0\3\23new_notes_location\17notes_subdir\24disable_frontmatter\2\17notes_subdir\5\1\0\2\tpath\20~/obsidian-2025\tname\rpersonal\nsetup\robsidian\frequire\0", "config", "obsidian.nvim")
+try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20config.obsidian\frequire\0", "config", "obsidian.nvim")
 time([[Config for obsidian.nvim]], false)
 -- Config for: neovim
 time([[Config for neovim]], true)
 try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "neovim")
 time([[Config for neovim]], false)
--- Config for: oil.nvim
-time([[Config for oil.nvim]], true)
-try_loadstring("\27LJ\2\n1\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\boil\frequire\0", "config", "oil.nvim")
-time([[Config for oil.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

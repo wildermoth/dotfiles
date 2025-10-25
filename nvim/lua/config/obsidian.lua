@@ -29,12 +29,8 @@ require("obsidian").setup({
 
     -- Note ID and path configuration
     note_id_func = function(title)
-        -- For new notes without title, use timestamp (YYYYMMDDHHmm)
-        if title == nil or title == "" then
-            return tostring(os.date("%Y%m%d%H%M"))
-        end
-        -- For notes with title, sanitize it
-        return title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        -- Always use timestamp ID with seconds (YYYYMMDDHHmmss)
+        return tostring(os.date("%Y%m%d%H%M%S"))
     end,
 
     note_path_func = function(spec)
@@ -67,4 +63,13 @@ require("obsidian").setup({
     follow_url_func = function(url)
         vim.fn.jobstart({"xdg-open", url})
     end,
+
+    -- Picker configuration - change keybinding for new note to Ctrl-s
+    picker = {
+        name = "telescope.nvim",
+        note_mappings = {
+            new = "<C-s>",
+            insert_link = "<C-l>",
+        },
+    },
 })
