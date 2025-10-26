@@ -9,7 +9,8 @@ SEARCH_DIRS=(
 )
 
 # Find all directories one level deep from search paths
-selected=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf)
+# Display with ~/ for cleaner look, then expand back to full path
+selected=$(find "${SEARCH_DIRS[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sed "s|$HOME|~|" | fzf | sed "s|^~|$HOME|")
 
 if [[ -z $selected ]]; then
     exit 0
