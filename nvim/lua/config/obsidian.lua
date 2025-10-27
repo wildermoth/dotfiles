@@ -70,5 +70,9 @@ require("obsidian").setup({
             new = "<C-s>",
             insert_link = "<C-l>",
         },
+        mappings = {
+            new = "<C-s>",
+            insert_link = "<C-l>",
+        },
     },
 })

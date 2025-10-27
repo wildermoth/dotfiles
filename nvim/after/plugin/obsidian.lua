@@ -23,6 +23,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
+
 -- Override ObsidianNew command to use timestamp ID
 vim.api.nvim_create_user_command('ObsidianNew', function(opts)
     local title = opts.args
@@ -40,7 +41,11 @@ vim.api.nvim_create_user_command('ObsidianNew', function(opts)
 end, { nargs = '?', desc = 'Create new note with timestamp ID', force = true })
 
 -- Obsidian keybindings
-vim.keymap.set('n', '<leader>os', ':ObsidianSearch<CR>', { desc = 'Search notes' })
+-- Custom ObsidianSearch that opens in vsplit
+vim.keymap.set('n', '<leader>os', function()
+    vim.cmd('vsplit')
+    vim.cmd('ObsidianSearch')
+end, { desc = 'Search notes' })
 vim.keymap.set('n', '<leader>od', ':ObsidianToday<CR>', { desc = "Today's daily note" })
 vim.keymap.set('n', '<leader>ot', ':ObsidianTomorrow<CR>', { desc = "Tomorrow's note" })
 vim.keymap.set('n', '<leader>oy', ':ObsidianYesterday<CR>', { desc = "Yesterday's note" })

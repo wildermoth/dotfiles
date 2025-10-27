@@ -13,6 +13,7 @@ function M.create_note_with_frontmatter(title)
         dir = client.dir,
     })
 
+    vim.cmd('vsplit')
     client:open_note(note)
 
     vim.defer_fn(function()
