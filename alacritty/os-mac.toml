@@ -5,6 +5,21 @@ general.import = ["./alacritty-base.toml"]
 program = "/bin/zsh"
 
 [font]
-size = 16.0
+size = 17.0
 
+# Make Option key act as Alt for tmux bindings
+[window]
+option_as_alt = "Both"
+
+
+# Mac key bindings using Control (same as Windows)
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control"
+
+[[keyboard.bindings]]
+key = "X"
+mods = "Control"
+chars = "\u0003"
 

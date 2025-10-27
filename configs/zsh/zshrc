@@ -195,8 +195,8 @@ source "$HOME/dotfiles/configs/zsh/zshrc_conf/cr.zsh"
 # Tmux sessionizer - Control-f to fuzzy find and switch sessions
 bindkey -s ^f "tmux-sessionizer\n"
 
-# Persistent tmux sessions - Alt-7,8,9,0
-bindkey -s '\e7' "tmux-session-persistent dotfiles\n"
-bindkey -s '\e8' "tmux-session-persistent gweb-diamond-valley\n"
-bindkey -s '\e9' "tmux-session-persistent placeholder-9\n"
-bindkey -s '\e0' "tmux-session-persistent placeholder-0\n"
+# Persistent tmux sessions - Alt + shifted numbers (Mac: Shift+Option+6789 sends +&*()
+bindkey -s '\e&' "tmux-session-persistent dotfiles\n"
+bindkey -s '\e*' "tmux-session-persistent gweb-diamond-valley\n"
+bindkey -s '\e(' "tmux-session-persistent placeholder-9\n"
+bindkey -s '\e)' "tmux-session-persistent placeholder-0\n"
