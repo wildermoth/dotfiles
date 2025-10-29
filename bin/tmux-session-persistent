@@ -17,8 +17,8 @@ case "$session_name" in
     gweb-diamond-valley)
         directory="$HOME/gweb-diamond-valley"
         ;;
-    placeholder-9)
-        directory="$HOME"
+    obsidian-2025)
+        directory="$HOME/obsidian-2025"
         ;;
     placeholder-0)
         directory="$HOME"

@@ -1,1 +1,6 @@
 packer_compiled.lua
+
+# Local symlinks created by install.sh
+alacritty/alacritty
+alacritty/alacritty.toml
+nvim/nvim

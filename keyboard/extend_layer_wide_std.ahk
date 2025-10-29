@@ -46,7 +46,7 @@ F24 & SC01E::Send {Blind}{LWinDown} ; A down
 F24 & SC01F::Send {Blind}{CtrlDown} ; R down
 F24 & SC020::Send {Blind}{ShiftDown} ; S down
 F24 & SC021::Send {Blind}{CtrlDown} ; T down
-F24 & SC022::Send {Blind}{AltDown} ; G down 
+F24 & SC022::Send {Blind}{AltDown}{ShiftDown} ; G down 
 F24 & SC023::return ; ]
 F24 & SC024::Send {Blind}{PgDn} ; M
 F24 & SC025::Send {Blind}{Left} ; N
@@ -59,7 +59,7 @@ F24 & SC01E up::Send {Blind}{LWinUp} ; A up
 F24 & SC01F up::Send {Blind}{CtrlUp} ; R up
 F24 & SC020 up::Send {Blind}{ShiftUp} ; S up
 F24 & SC021 up::Send {Blind}{CtrlUp} ; T up
-F24 & SC022 up::Send {Blind}{AltUp} ; G up
+F24 & SC022 up::Send {Blind}{AltUp}{ShiftUp} ; G up
 
 ; bottom row
 F24 & SC02C::Send {Blind}{CtrlDown}{x}{CtrlUp} ; X
